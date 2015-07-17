@@ -1,0 +1,46 @@
+#tab{
+    height: auto;
+    text-align: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tab tr th{
+    text-align: center;
+}
+
+#d{
+    width: 1200px;
+    margin: 0 auto;
+	text-align:center;
+    border:  1px lightgrey solid;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px lightgrey;
+    background: #f9f9f9;
+}
+
+#tab td{
+    width: 200px;
+}
+
+#scType{
+    float: left;
+}
+
+#scType div{
+    margin-top: 20px;
+}
+
+tr
+{
+    background: #cbf5ff;
+    }
+tr:nth-child(2n)
+{
+    background: #f9f9f9;
+}
+tr
+{
+    background-color: expression((this.sectionRowIndex % 2 == 0) ? "#cbf5ff" : "#f9f9f9" );
+}

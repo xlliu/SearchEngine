@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SearchEngine</title>
+    <link rel="stylesheet" href="{{ static_url('css/org/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/index.css') }}">
+    <script src="{{ static_url('js/org/jquery-2.1.3.min.js') }}"></script>
+    <script src="{{ static_url('js/org/bootstrap.min.js') }}"></script>
+    <script src="{{ static_url('js/pageConfig.js') }}"></script>
+    <script src="{{ static_url('js/search.js') }}"></script>
+    <script src="{{ static_url('js/screen.js') }}"></script>
+    <script src="{{ static_url('js/collect.js') }}"></script>
+</head>
+<body>
+<input type="hidden" id="screenHidden" value={{ screen }} />
+<input type="hidden" id="taskIdHidden" value={{ taskId }} />
+<input type="hidden" id="currentPageHidden" value=0>
+<div style="margin: auto; width: 800px; ">
+    <div>
+        <form id="search_engine" action="/index" method="post">
+                <span>
+                    <label><input type="radio" class="radio_type" name="type" value="0" checked="checked">All</label>
+                    <label><input type="radio" class="radio_type" name="type" value="1">People</label>
+                    <label><input type="radio" class="radio_type" name="type" value="2"/>Group</label>
+                    <label><input type="radio" class="radio_type" name="type" value="3"/>Page</label>
+                    <label><input type="radio" class="radio_type" name="type" value="4"/>Event</label>
+                </span>
+                <span style="margin-left: 260px">
+                    <label><input type="checkbox" class="checkbox_type" name="type2" value="5" />Web Engine</label>
+                </span>
+                <span><a href="/tasklist" class="btn btn-primary" style="margin-left: 80px;background-color: red;border-color: #204d74;" target="_blank">任务列表</a></span>
+                <br>
+                <input type="text" style="display: none">
+                <span><input type="text" name="content" id="content" onkeydown="EnterPress(event)" style="width: 539px; height: 34px;float: left;border: 1px solid #b6b6b6;padding: 0px"/></span>
+                <span><input type="button" value="GO" id="disGo" onclick="goSearch()" style="width: 70px; height: 35px; float: left; background-color: #3385ff;color: white; font-size: 15px; outline: medium; border: 0px;padding: 0px; letter-spacing: 1px"/></span>
+        </form>
+    </div>
+    <div id="mask"></div>
+    <div class="spinner"></div>
+    <br>
+    <form action="/screen" method="post" style="display: none" id="all_from"><input name="screen" value=0><input name="taskId" value={{ taskId }}></form>
+    <form action="/screen" method="post" style="display: none" id="peo_from"><input name="screen" value=1><input name="taskId" value={{ taskId }}></form>
+    <form action="/screen" method="post" style="display: none" id="gro_from"><input name="screen" value=2><input name="taskId" value={{ taskId }}></form>
+    <form action="/screen" method="post" style="display: none" id="eve_from"><input name="screen" value=3><input name="taskId" value={{ taskId }}></form>
+    <form action="/screen" method="post" style="display: none" id="pag_from"><input name="screen" value=4><input name="taskId" value={{ taskId }}></form>
+    <div id="show_content" style="width: 800px;">
+        <div class="" style="float: left;width: 800px">
+            <div style="height: 100%; width: 800px">
+                <label>在查询结果中筛选:</label>
+                <a class="btn btn-info" href="javascript:void(0)" onclick="screenAll()">All</a>
+                <a class="btn btn-info" href="javascript:void(0)" onclick="screenPeople()">People</a>
+                <a class="btn btn-info" href="javascript:void(0)" onclick="screenGroup()">Group</a>
+                <a class="btn btn-info" href="javascript:void(0)" onclick="screenPage()">Page</a>
+                <a class="btn btn-info" href="javascript:void(0)" onclick="screenEvent()">Event</a>
+            </div>
+        </div>
+
+        <div id="for_con">
+        </div>
+        <div style="text-align: center;">
+            <ul class="pager" >
+                <span>
+                    <li><a href="#" style="display: none" id="zero" onclick="first()">首页</a></li>
+                    <li><a href="#" style="display: none" id="pageUp" onclick="pageUp()">上一页</a></li>
+                    {% if (totalCounts+pageShowNum-1)/pageShowNum > 1%}
+                    <li><a href="#" style="" id="pageDown" onclick="pageDown()">下一页</a></li>
+                    <li><a href="#" style="" id="last" onclick="last()">末页 </a></li>
+                    {% end %}
+                </span>
+                {% if (totalCounts+pageShowNum-1)/pageShowNum > 1 %}
+                当前为<span id="showCurrentPage">{{ currentPage+1 }}</span> 页  &nbsp;&nbsp;&nbsp;&nbsp;共 <span id="totalPage">{{ (totalCounts+pageShowNum-1)/pageShowNum }}</span>页
+                {% end %}
+            </ul>
+        </div>
+    </div>
+    <br>
+</div>
+</body>
+</html>

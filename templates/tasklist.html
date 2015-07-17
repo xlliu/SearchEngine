@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"
+    <title></title>
+    <link rel="stylesheet" href="{{ static_url('css/org/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/tasklist.css') }}">
+    <script src="{{ static_url('js/org/jquery-2.1.3.min.js') }}"></script>
+    <script src="{{ static_url('js/org/bootstrap.min.js') }}"></script>
+    <script src="{{ static_url('js/tasklist.js') }}"></script>
+</head>
+<body>
+<input type="hidden" id="currentPage" value="{{ currentPage }}">
+<input type="hidden" id="curSortWay" value="">{#排序类别#}
+<input type="hidden" id="screen" value="{{ sc }}">
+<input type="hidden" id="totalCounts" value="{{ lastPage }}">{#排序-升序、降序#}
+<div id="d">
+    <center>
+        <fieldset>
+            <legend><h2>TaskList</h2></legend>
+            <div id="scType">
+                <div><input type="button" class="btn btn-default" onclick="screen('a')" value="AllTask"/></div>
+                <div><input type="button" class="btn btn-default" onclick="screen('s')" value="SearchTask"/></div>
+                <div><input type="button" class="btn btn-default" onclick="screen('c')" value="CollectTask"/></div>
+            </div>
+            <table id="tab"></table>
+        </fieldset>
+        <ul class="pager">
+            <span><li><a href="#" onclick="pagetop(0)" id="pagefirst" style="display: none">首页</a></li></span>
+            <span><li><a href="#" onclick="pagetop()" id="pagetop" style="display: none">上一页</a></li></span>
+            <span><li><a href="#" onclick="pagedown()" id="pagedown">下一页</a></li></span>
+            <span><li><a href="#" onclick="pagedown({{ lastPage }})" id="pagelast">末页</a></li></span>
+        </ul>
+    </center>
+</div>
+</body>
+</html>
